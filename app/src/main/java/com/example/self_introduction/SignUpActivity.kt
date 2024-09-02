@@ -90,7 +90,7 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     // 비밀번호 조건 : 8자 이상, 숫자 포함, 대문자 포함, 소문자 포함, 특수문자 포함
-    fun isPasswordValid(password: String): Boolean {
+    private fun isPasswordValid(password: String): Boolean {
         val minLength = 8
         val hasNumber = password.any { it.isDigit() }
         val hasUpperCase = password.any { it.isUpperCase() }
