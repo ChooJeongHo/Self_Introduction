@@ -1,31 +1,47 @@
 package com.example.self_introduction
 
-import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
+import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import com.example.self_introduction.databinding.ActivitySignUpBinding
 
 class SignUpActivity : AppCompatActivity() {
+    private lateinit var binding: ActivitySignUpBinding
+    private val viewModel: SignUpViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sign_up)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_sign_up)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
 
-        val etName = findViewById<EditText>(R.id.et_signUp_name)
-        val etId = findViewById<EditText>(R.id.et_signUp_id)
-        val etPw = findViewById<EditText>(R.id.et_signUp_pw)
-        val btnSign = findViewById<Button>(R.id.btn_sign)
-        val nameErrorText = findViewById<TextView>(R.id.name_error_text)
-        val idErrorText = findViewById<TextView>(R.id.id_error_text)
-        val pwErrorText = findViewById<TextView>(R.id.pw_error_text)
+        viewModel.signUpEvent.observe(this, Observer { isSuccess ->
+            if (isSuccess) {
+                Toast.makeText(this, "회원가입 성공", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, SignInActivity::class.java)
+                intent.putExtra("SignUpId", viewModel.signUpId.value)
+                intent.putExtra("SignUpPw", viewModel.signUpPassword.value)
+                setResult(RESULT_OK, intent)
+                finish()
+            } else {
+                Toast.makeText(this, "회원가입 실패", Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        /*val etName = binding.etSignUpName
+        val etId = binding.etSignUpId
+        val etPw = binding.etSignUpPw
+        val btnSign = binding.btnSign
+        val nameErrorText = binding.nameErrorText
+        val idErrorText = binding.idErrorText
+        val pwErrorText = binding.pwErrorText*/
 
         // name, id, pw가 모두 입력 되었을 때만 회원가입 버튼이 눌려짐
-        val textWatcher = object : TextWatcher {
+        /*val textWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 // 아무것도 안함
             }
@@ -46,9 +62,9 @@ class SignUpActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 // 아무것도 안함
             }
-        }
+        }*/
 
-        etName.addTextChangedListener(textWatcher)
+        /*etName.addTextChangedListener(textWatcher)
         etId.addTextChangedListener(textWatcher)
         etPw.addTextChangedListener(textWatcher)
 
@@ -71,9 +87,9 @@ class SignUpActivity : AppCompatActivity() {
                 pwErrorText.visibility = TextView.VISIBLE
                 pwErrorText.text = "비밀번호를 입력해주세요."
             }
-        }
+        }*/
 
-        btnSign.setOnClickListener {
+        /*btnSign.setOnClickListener {
             // etName, etId, etPw 중 하나라도 입력되지 않았을 때, 회원가입 버튼이 눌려져도 회원가입이 되지 않음
             if (etName.text.isEmpty() || etId.text.isEmpty() || etPw.text.isEmpty()) {
                 Toast.makeText(this, "입력되지 않은 정보가 있습니다.", Toast.LENGTH_SHORT).show()
@@ -83,20 +99,9 @@ class SignUpActivity : AppCompatActivity() {
                 val intent = Intent(this, SignInActivity::class.java)
                 intent.putExtra("SignUpId", etId.text.toString())
                 intent.putExtra("SignUpPw", etPw.text.toString())
-                setResult(RESULT_OK, intent)    // SignUpActivity에서 SignInActivity로 돌아갈 때, SignUpActivity에서 입력한 id, pw를 SignInActivity에 전달
+                setResult(RESULT_OK, intent)                            // SignUpActivity에서 SignInActivity로 돌아갈 때, SignUpActivity에서 입력한 id, pw를 SignInActivity에 전달
                 finish()
             }
-        }
-    }
-
-    // 비밀번호 조건 : 8자 이상, 숫자 포함, 대문자 포함, 소문자 포함, 특수문자 포함
-    private fun isPasswordValid(password: String): Boolean {
-        val minLength = 8
-        val hasNumber = password.any { it.isDigit() }
-        val hasUpperCase = password.any { it.isUpperCase() }
-        val hasLowerCase = password.any { it.isLowerCase() }
-        val hasSpecialChar = password.any { !it.isLetterOrDigit() }
-
-        return password.length >= minLength && hasNumber && hasUpperCase && hasLowerCase && hasSpecialChar
+        }*/
     }
 }

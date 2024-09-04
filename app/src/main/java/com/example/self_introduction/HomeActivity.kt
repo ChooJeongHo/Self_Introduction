@@ -1,22 +1,23 @@
 package com.example.self_introduction
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import com.example.self_introduction.databinding.ActivityHomeBinding
 
 class HomeActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityHomeBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
+        binding = ActivityHomeBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val ivProfile = findViewById<ImageView>(R.id.iv_profile)
-        val profileId = findViewById<EditText>(R.id.et_profile_id)
-        val btnFinish = findViewById<Button>(R.id.btn_finish)
+        val ivProfile = binding.ivProfile
+        val profileId = binding.etProfileId
+        val btnFinish = binding.btnFinish
         val idData = intent.getStringExtra("LoginId")
 
-        if (intent.hasExtra("LoginId")) {
+        if (idData != null) {
             profileId.setText(idData)
         }
 
