@@ -2,7 +2,6 @@ package com.example.self_introduction
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -19,7 +18,7 @@ class SignUpActivity : AppCompatActivity() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        viewModel.signUpEvent.observe(this, Observer { isSuccess ->
+        viewModel.signUpEvent.observe(this) { isSuccess ->
             if (isSuccess) {
                 Toast.makeText(this, "회원가입 성공", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, SignInActivity::class.java)
@@ -30,7 +29,7 @@ class SignUpActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(this, "회원가입 실패", Toast.LENGTH_SHORT).show()
             }
-        })
+        }
 
         /*val etName = binding.etSignUpName
         val etId = binding.etSignUpId

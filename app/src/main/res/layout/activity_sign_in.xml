@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.self_introduction.SignInViewModel" />"
+            type="com.example.self_introduction.SignInViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

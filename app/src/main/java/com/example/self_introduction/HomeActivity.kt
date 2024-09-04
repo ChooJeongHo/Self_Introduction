@@ -2,7 +2,6 @@ package com.example.self_introduction
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.example.self_introduction.databinding.ActivityHomeBinding
 
 class HomeActivity : AppCompatActivity() {
