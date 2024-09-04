@@ -6,7 +6,6 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import com.example.self_introduction.databinding.ActivitySignUpBinding
 
 class SignUpActivity : AppCompatActivity() {
