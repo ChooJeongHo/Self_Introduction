@@ -34,5 +34,4 @@ class HomeActivity : AppCompatActivity() {
             finish()
         }
     }
-    // 테스트
 }
